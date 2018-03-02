@@ -2,7 +2,7 @@
 export config_file=my.conf
 
 # Set current dir to working dir - http://stackoverflow.com/a/10348989/277871
-cd "$(dirname ${BASH_SOURCE[0]})"
+cd $(dirname $(realpath $0))
 
 . ../$config_file || exit -1
 
@@ -34,3 +34,5 @@ if [ "$ec2spotter_key_name" = "aws-key-$name" ]
 then
 	echo Then connect to your instance: ssh -i ~/.ssh/aws-key-$name.pem ubuntu@$ip
 fi
+
+echo $ip | tee /tmp/aws.ip
